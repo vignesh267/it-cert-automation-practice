@@ -1,7 +1,33 @@
-# Google IT Automation with Python Professional Certificate - Practice files
-
-This repository contains the practice files used throughout the courses that are
-part of the Google IT Automation with Python Professional Certificate
-
-There's a separate folder for each course.
-
+pipline{
+    agent{label 'master'}
+    tools{maven 'M3'}
+    stages{
+        stage('Checkout'){
+            steps{
+                git branch: 'main', url:'https://github.com/AnjuMeleth/SpringPetClinic.git'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh 'mvn complile'
+            }
+        }
+        stage('Test'){
+            steps{
+                sh 'mvn test'
+            }
+        }
+        stage('Package'){
+            steps{
+                sh 'mvn package'
+            }
+        }
+        stage('Deploy'){
+            steps{
+                sh 'java -jar /var/lib/jenkins/workspace/testdeclarativepipeline/target/*.jar'
+            }
+        }
+        
+        
+    }
+}
